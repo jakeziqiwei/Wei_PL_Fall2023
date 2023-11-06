@@ -54,10 +54,8 @@ end = struct
               raise Fail "not right cond t1 != t2"
         | (_,_,_) => raise Fail "not right c not bool") 
     | typeof (env,S.Eq(t1,t2)) = (case ((typeof (env,t1)), (typeof (env,t2))) of
-          (T.Nat,T.Nat) => if t1' = t2' then 
-              T.Bool
-            else 
-              raise Fail "not right eq t1!=t2" )
+          (T.Nat,T.Nat) => T.Bool 
+        | _ => raise Fail "not right eq t1!=t2")
     | typeof (env,S.Pair(t1,t2)) = (case ((typeof (env,t1)), (typeof (env,t2))) of 
           (t1',t2') => T.Product(t1',t2'))
     | typeof (env,S.First t1) = (case (typeof (env,t1)) of 

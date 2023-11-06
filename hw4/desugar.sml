@@ -127,8 +127,9 @@ end = struct
       end
     | desugar (S.Pow(t1,t2)) = 
       let
+        val church1 = U.Lam("s", U.Lam("z", U.App(U.Var "s", U.Var "z")))
         val churchMul = U.Lam("m", U.Lam("n", U.Lam ("s", U.App(U.Var "m",U.App (U.Var "n", U.Var"s")))))
-        val churchPow = U.Lam("m", U.Lam("n", U.App(U.App(U.Var "n", U.App(churchMul, U.Var "m")),int_to_ULC(1))))
+        val churchPow = U.Lam("m", U.Lam("n", U.App(U.App(U.Var "n", U.App(churchMul, U.Var "m")),desugar(S.Nat 1))))
       in
         U.App(U.App(churchPow,desugar(t1)), desugar(t2))
       end
