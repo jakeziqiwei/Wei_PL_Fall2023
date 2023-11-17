@@ -74,7 +74,8 @@ end = struct
               else 
                 raise Fail "t2 does not step into a value"
             end
-        | L.False =>     let
+        | L.False =>     
+          let
             val v3 = eval t3
           in
             if isV v3 then 
@@ -117,12 +118,12 @@ end = struct
         else 
           L.Record(recList)
       end
-    | eval (L.Select (str,t1)) = case t1 of 
-        L.Record (lst) =>  (case (List.find (fn (x:string,y:L.term) => x = str) lst) of
-              SOME (str',t1') => if isV t1' then 
+    | eval (L.Select (str,t1)) = case (eval t1) of 
+        L.Record (lst) =>  (case (List.find (fn (x:string, y:L.term) => x = str) lst) of
+              SOME (_,t1') => if isV t1' then 
                   t1'
                 else 
-                  eval(t1')
+                  raise Fail "incorrect record"
             | NONE => raise Fail "cant find the term in record")
       | _ => raise Fail "select not followed by record"
     
