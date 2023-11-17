@@ -37,7 +37,6 @@ end = struct
       | L.LessThan(t1,t2) => L.LessThan(subst(x,s,t1),subst(x,s,t2))
       | L.Not(t1) => L.Not(subst(x,s,t1))
       | L.Record(lst) => L.Record(List.map (fn (t:string, tm:L.term) => (t, subst(x,s,tm))) lst)
-      | L.Select(t,lst) => L.Select(t,lst)
-
+      | L.Select(t,lst) => L.Select(t,subst(x,s,lst))
 
 end

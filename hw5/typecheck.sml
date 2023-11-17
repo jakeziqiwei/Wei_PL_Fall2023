@@ -127,8 +127,6 @@ end = struct
             | NONE => raise Fail "not in record")
       |_ =>raise Fail "select not followed by record"
 
-		  
-
 
   fun typeof t = envTypeCheck (TypeEnv.empty,t)
 	    
