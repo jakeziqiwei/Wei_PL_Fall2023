@@ -121,9 +121,9 @@ end = struct
       in
         T.Record(List.map check lst)
       end
-    | envTypeCheck(env,L.Select(str,t1)) = case t1 of 
-        L.Record(lst) => (case (List.find (fn (x,y) => x = str) lst) of 
-              SOME (_,term) => envTypeCheck(env,term)
+    | envTypeCheck(env,L.Select(str,t1)) = case envTypeCheck(env,t1) of 
+        T.Record(lst) => (case (List.find (fn (x,y) => x = str) lst) of 
+              SOME (_,term) => term
             | NONE => raise Fail "not in record")
       |_ =>raise Fail "select not followed by record"
 
